@@ -27,11 +27,24 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; }
 <a href="#kustomisasi" class="hover:text-blue-400 transition">Kustomisasi</a>
 <a href="#harga" class="hover:text-blue-400 transition">Harga Promo</a>
 </div>
-<div>
-<a href="image/workflow.jpg" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition shadow-lg shadow-blue-500/15">
-Coba Sekarang
-</a>
+<!-- Tombol Pemicu -->
+<div> 
+    <button id="openModal" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition shadow-lg shadow-blue-500/15"> 
+        Coba Sekarang 
+    </button> 
 </div>
+
+<!-- Struktur Pop-up (Modal) -->
+<div id="imageModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 hidden opacity-0 transition-opacity duration-300">
+    <!-- Area Konten Modal -->
+    <div class="relative max-w-3xl max-h-[90vh] p-4 bg-white rounded-2xl shadow-2xl m-4">
+        <!-- Tombol Close (X) -->
+        <button id="closeModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 bg-gray-100 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg transition">
+            &times;
+        </button>
+        <!-- Gambar -->
+        <img src="image/workflow.jpg" alt="Workflow" class="max-w-full max-h-[80vh] rounded-xl object-contain">
+    </div>
 </div>
 </nav>
 <!-- Hero Section -->
