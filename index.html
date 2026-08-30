@@ -13,38 +13,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; }
 </style>
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased overflow-x-hidden">
-// Mengambil elemen-elemen yang dibutuhkan
-const openModalBtn = document.getElementById('openModal');
-const closeModalBtn = document.getElementById('closeModal');
-const modal = document.getElementById('imageModal');
 
-// Fungsi untuk membuka modal
-openModalBtn.addEventListener('click', () => {
-    modal.classList.remove('hidden');
-    // Beri sedikit delay agar efek transisi opacity berjalan
-    setTimeout(() => {
-        modal.classList.remove('opacity-0');
-    }, 10);
-});
-
-// Fungsi untuk menutup modal
-function closeModal() {
-    modal.classList.add('opacity-0');
-    // Tunggu animasi selesai sebelum menyembunyikan elemen
-    setTimeout(() => {
-        modal.classList.add('hidden');
-    }, 300); // Sesuai dengan duration-300 di Tailwind
-}
-
-// Tutup ketika tombol close diklik
-closeModalBtn.addEventListener('click', closeModal);
-
-// Tutup ketika area hitam di luar gambar diklik
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        closeModal();
-    }
-});
 <!-- Navbar -->
 <nav class="sticky top-0 bg-slate-950/80 backdrop-blur-md border-b border-slate-900 z-50 py-4 px-6 md:px-12">
 <div class="max-w-7xl mx-auto flex justify-between items-center">
@@ -59,26 +28,13 @@ modal.addEventListener('click', (e) => {
 <a href="#kustomisasi" class="hover:text-blue-400 transition">Kustomisasi</a>
 <a href="#harga" class="hover:text-blue-400 transition">Harga Promo</a>
 </div>
-<!-- Tombol Pemicu -->
-<div> 
-    <button id="openModal" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition shadow-lg shadow-blue-500/15"> 
-        Coba Sekarang 
-    </button> 
+<div>
+<a href="#harga" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition shadow-lg shadow-blue-500/15">
+Coba Sekarang
+</a>
 </div>
 </div>
-</nav> 
-<!-- Struktur Pop-up (Modal) -->
-<div id="imageModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 hidden opacity-0 transition-opacity duration-300">
-    <!-- Area Konten Modal -->
-    <div class="relative max-w-3xl max-h-[90vh] p-4 bg-white rounded-2xl shadow-2xl m-4">
-        <!-- Tombol Close (X) -->
-        <button id="closeModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 bg-gray-100 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg transition">
-            &times;
-        </button>
-        <!-- Gambar -->
-        <img src="image/workflow.jpg" alt="Workflow" class="max-w-full max-h-[80vh] rounded-xl object-contain">
-    </div>
-</div>
+</nav>
 
 <!-- Hero Section -->
 <section class="relative pt-20 pb-24 px-6 md:px-12 max-w-7xl mx-auto text-center md:text-left grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
