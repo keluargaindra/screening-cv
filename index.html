@@ -47,6 +47,38 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; }
         <img src="image/workflow.jpg" alt="Workflow" class="max-w-full max-h-[80vh] rounded-xl object-contain">
     </div>
 </div>
+// Mengambil elemen-elemen yang dibutuhkan
+const openModalBtn = document.getElementById('openModal');
+const closeModalBtn = document.getElementById('closeModal');
+const modal = document.getElementById('imageModal');
+
+// Fungsi untuk membuka modal
+openModalBtn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    // Beri sedikit delay agar efek transisi opacity berjalan
+    setTimeout(() => {
+        modal.classList.remove('opacity-0');
+    }, 10);
+});
+
+// Fungsi untuk menutup modal
+function closeModal() {
+    modal.classList.add('opacity-0');
+    // Tunggu animasi selesai sebelum menyembunyikan elemen
+    setTimeout(() => {
+        modal.classList.add('hidden');
+    }, 300); // Sesuai dengan duration-300 di Tailwind
+}
+
+// Tutup ketika tombol close diklik
+closeModalBtn.addEventListener('click', closeModal);
+
+// Tutup ketika area hitam di luar gambar diklik
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        closeModal();
+    }
+});
 
 <!-- Hero Section -->
 <section class="relative pt-20 pb-24 px-6 md:px-12 max-w-7xl mx-auto text-center md:text-left grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
