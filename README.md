@@ -7,7 +7,6 @@ SCREENING CV ONLINE
 
 Investasi Sekali, Hemat Selamanya
 Dapatkan lisensi penuh template spreadsheet, website portal HRD, dan skrip integrasi seumur hidup tanpa biaya langganan bulanan tersembunyi.
-Template Google Sheets Pro
 Termasuk : Website Portal HR (Tailwind CSS), Integrasi API Gemini 3.7 Flash, Notifikasi Slack Webhook & Email, Kode Sumber (Bisa di-customize)
 
 Hubungi Tim Sales Via
