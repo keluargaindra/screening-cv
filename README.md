@@ -10,6 +10,6 @@ Dapatkan lisensi penuh template spreadsheet, website portal HRD, dan skrip integ
 Termasuk : Website Portal HR (Tailwind CSS), Integrasi API Gemini 3.7 Flash, Notifikasi Slack Webhook & Email, Kode Sumber (Bisa di-customize)
 
 Hubungi Tim Sales Via
-WhatsApp : +628138194563
+WhatsApp : https://wa.me/628138194563
 Website : https://github.com/keluargaindra/screening-cv/
 E-Mail : indra.mulyana.wfh@gmail.com
