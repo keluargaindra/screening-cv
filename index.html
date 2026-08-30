@@ -51,109 +51,11 @@ Kelelahan menyaring berkas pelamar secara manual? Biarkan AI menyaring, memberi 
 <a href="#harga" class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold px-9 py-4 rounded-2xl shadow-xl shadow-blue-500/10 text-center transition transform hover:-translate-y-1">
 Dapatkan Akses Promo – Rp 1.499.000
 </a>
-<a href="workflow.jpg" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold px-9 py-4 rounded-2xl border border-slate-800 text-center transition">
+<link href="workflow.jpg" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold px-9 py-4 rounded-2xl border border-slate-800 text-center transition">
 Lihat Demo Portal
 </a>
 </div>
 </div>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo Pop-Up Gambar</title>
-    <style>
-        /* Mengatur tampilan tombol */
-        button {
-            padding: 10 20;
-            font-size: 16;
-            cursor: pointer;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5;
-        }
-
-        /* Mengatur latar belakang modal pop-up (awalnya disembunyikan) */
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1; 
-            left: 0;
-            top: 0;
-            width: 100; 
-            height: 100; 
-            background-color: (0, 0, 0, 0.7); /* Latar belakang hitam transparan */
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Konten di dalam pop-up */
-        .modal-content {
-            position: relative;
-            background-color: #fff;
-            padding: 20;
-            border-radius: 8;
-            max-width: 1000;
-            text-align: center;
-        }
-
-        /* Mengatur ukuran gambar di dalam pop-up */
-        .modal-content img {
-            width: 100;
-            height: auto;
-            border-radius: 5;
-        }
-
-        /* Tombol Close (X) */
-        .close-btn {
-            position: absolute;
-            top: 5;
-            right: 12;
-            font-size: 24;
-            font-weight: bold;
-            cursor: pointer;
-            color: #333;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Tombol untuk memicu pop-up -->
-    <button id="bukaPopup">Klik untuk Buka Gambar</button>
-
-    <!-- Elemen Modal / Pop-Up -->
-    <div id="modalPopup" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" id="tutupPopup">&times;</span>
-            <!-- Tag gambar untuk menampilkan foto -->
-            <img src="workflow.jpg" alt="Contoh Gambar">
-        </div>
-    </div>
-
-    <script>
-        // Mengambil elemen dari HTML
-        const modal = document.getElementById("modalPopup");
-        const btnBuka = document.getElementById("bukaPopup");
-        const btnTutup = document.getElementById("tutupPopup");
-
-        // Ketika tombol diklik, tampilkan modal dengan mengubah display menjadi flex
-        btnBuka.onclick = function() {
-            modal.style.display = "flex";
-        }
-
-        // Ketika tombol close (X) diklik, sembunyikan modal
-        btnTutup.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // Ketika area di luar kotak gambar diklik, modal ikut tertutup
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-
-</body>
 <!-- Decorative Gradient Glow behind the card -->
 <div class="absolute inset-0 bg-blue-600/10 blur-[120px] rounded-full"></div>
 <div class="bg-slate-950 border border-slate-800 rounded-3xl p-6 shadow-2xl relative max-w-md w-full">
