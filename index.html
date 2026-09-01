@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Screening CV v2</title>
+    <title>Formulir Screening CV</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f6f9; padding: 20px; display: flex; justify-content: center; }
         .form-container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
         h2 { text-align: center; color: #333; margin-bottom: 20px; }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
-        input[type="text"], input[type="email"], input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; font-weight: bold; }
-        button:hover { background-color: #218838; }
+        input[type="text"], input[type="email"], input[type="url"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #0056b3; }
         #message { margin-top: 15px; text-align: center; font-weight: bold; }
         .success { color: green; }
         .error { color: red; }
@@ -32,69 +32,58 @@
             <input type="email" id="email" required placeholder="nama@email.com">
         </div>
         <div class="form-group">
-            <label for="fileCv">Unggah CV (Format PDF, Maks 5MB)</label>
-            <input type="file" id="fileCv" accept=".pdf" required>
+            <label for="linkCv">Link Google Drive / LinkedIn CV</label>
+            <input type="url" id="linkCv" required placeholder="https://google.com...">
         </div>
-        <button type="submit" id="submitBtn">Kirim Data & CV</button>
+        <button type="submit" id="submitBtn">Kirim CV Saya</button>
     </form>
     <div id="message"></div>
 </div>
 
 <script>
     // GANTI TULISAN DI BAWAH INI DENGAN URL WEB APP DARI GOOGLE APPS SCRIPT ANDA
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwLVjZ0lw0-R4Cp8tyFX841AxcPAjHFEvo82NUdYu-Zd06C4OIP8OLhp041C3UsaELM/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxyHMAGKxFUD09oBfdTUIdo-JXFjPgn6oG7FLlYgtV4spe555IWN51E_qr2y6QShgT5/exec';
 
     document.getElementById('cvForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+        e.preventDefault(); // Mencegah halaman reload saat submit
         
         const submitBtn = document.getElementById('submitBtn');
         const messageDiv = document.getElementById('message');
-        const fileInput = document.getElementById('fileCv').files[0];
         
-        // Validasi ukuran file (Maksimal 5MB)
-        if (fileInput.size > 5 * 1024 * 1024) {
-            alert('Ukuran file terlalu besar! Maksimal 5MB.');
-            return;
-        }
-
+        // Ubah tombol menjadi loading
         submitBtn.disabled = true;
-        submitBtn.innerText = 'Mengunggah & Mengirim...';
+        submitBtn.innerText = 'Mengirim...';
         messageDiv.innerText = '';
 
-        // Membaca file PDF dan mengubahnya ke Base64 string
-        const reader = new FileReader();
-        reader.readAsDataURL(fileInput);
-        reader.onload = function () {
-            const base64String = reader.result.split(',')[1]; // Ambil data bytes saja
-
-            const dataPelamar = {
-                nama: document.getElementById('nama').value,
-                email: document.getElementById('email').value,
-                fileBytes: base64String,
-                fileMimeType: fileInput.type
-            };
-
-            // Kirim ke Google Apps Script
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(dataPelamar)
-            })
-            .then(() => {
-                messageDiv.className = 'success';
-                messageDiv.innerText = '✓ Sukses! CV terunggah ke Drive & email konfirmasi telah dikirim.';
-                document.getElementById('cvForm').reset();
-            })
-            .catch(error => {
-                messageDiv.className = 'error';
-                messageDiv.innerText = '❌ Gagal: ' + error.message;
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerText = 'Kirim Data & CV';
-            });
+        // Ambil data dari input form
+        const dataPelamar = {
+            nama: document.getElementById('nama').value,
+            email: document.getElementById('email').value,
+            linkCv: document.getElementById('linkCv').value
         };
+
+        // Kirim data ke Google Apps Script menggunakan fetch API
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors', // Diperlukan agar tidak terblokir CORS policy di browser lokal
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataPelamar)
+        })
+        .then(() => {
+            // Karena menggunakan mode: 'no-cors', browser tidak bisa membaca JSON respons,
+            // namun jika data masuk ke Google Sheets, proses dianggap sukses.
+            messageDiv.className = 'success';
+            messageDiv.innerText = '✓ CV Berhasil Terkirim! Silakan cek Google Sheets Anda.';
+            document.getElementById('cvForm').reset(); // Reset form isi kembali kosong
+        })
+        .catch(error => {
+            messageDiv.className = 'error';
+            messageDiv.innerText = '❌ Gagal mengirim data: ' + error.message;
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'Kirim CV Saya';
+        });
     });
 </script>
 
