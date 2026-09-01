@@ -1,14 +1,33 @@
 /**
-* Menampilkan halaman Website utama saat URL Web App diakses
+* Menampilkan halaman Website dengan Proteksi Login Google OAuth
 */
 function doGet() {
+// Mengambil email pengguna yang sedang login melalui Google OAuth
+const userEmail = Session.getActiveUser().getEmail();
+// DAFTAR EMAIL HRD YANG DIIZINKAN MASUK (Silakan sesuaikan)
+const allowedEmails = [
+"indra.mulyana.wfh@gmail.com",
+"staf.rekrutmen@gmail.com",
+"admin.karyawan@gmail.com"
+];
+// Jika email pengguna tidak terdaftar di daftar di atas
+if (allowedEmails.indexOf(userEmail) === -1) {
+return HtmlService.createHtmlOutput(
+"<div style='font-family: sans-serif; text-align: center; padding-top: 100px; color: #334155;'>" +
+"  <span style='font-size: 50px;'>🔒</span>" +
+"  <h2 style='margin-top: 20px;'>Akses Ditolak (Access Denied)</h2>" +
+"  <p>Akun Google Anda (" + (userEmail || "Tidak Terdeteksi") + ") tidak memiliki izin untuk mengakses Portal HRD ini.</p>" +
+"  <p style='font-size: 13px; color: #64748b;'>Silakan hubungi Administrator Utama jika Anda membutuhkan hak akses.</p>" +
+"</div>"
+);
+}
+// Jika lolos verifikasi, tampilkan halaman Dashboard utama
 return HtmlService.createTemplateFromFile('Index')
 .evaluate()
 .setTitle('Portal Manajemen & Screening CV HRD')
 .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
 .addMetaTag('viewport', 'width=device-width, initial-scale=1');
 }
-/**
 * Mengambil data pelamar dan statistik KPI secara real-time untuk ditampilkan di website
 */
 function getDashboardData() {
