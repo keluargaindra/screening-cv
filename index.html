@@ -1,91 +1,166 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Screening CV</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f6f9; padding: 20px; display: flex; justify-content: center; }
-        .form-container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-        h2 { text-align: center; color: #333; margin-bottom: 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
-        input[type="text"], input[type="email"], input[type="url"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; font-weight: bold; }
-        button:hover { background-color: #0056b3; }
-        #message { margin-top: 15px; text-align: center; font-weight: bold; }
-        .success { color: green; }
-        .error { color: red; }
-    </style>
+<base target="_top">
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Plus Jakarta Sans', sans-serif; }
+</style>
 </head>
-<body>
-
-<div class="form-container">
-    <h2>Screening CV Pelamar</h2>
-    <form id="cvForm">
-        <div class="form-group">
-            <label for="nama">Nama Lengkap</label>
-            <input type="text" id="nama" required placeholder="Masukkan nama lengkap">
-        </div>
-        <div class="form-group">
-            <label for="email">Alamat Email</label>
-            <input type="email" id="email" required placeholder="nama@email.com">
-        </div>
-        <div class="form-group">
-            <label for="linkCv">Link Google Drive / LinkedIn CV</label>
-            <input type="url" id="linkCv" required placeholder="https://google.com...">
-        </div>
-        <button type="submit" id="submitBtn">Kirim CV Saya</button>
-    </form>
-    <div id="message"></div>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+<!-- Navigation Bar -->
+<nav class="bg-slate-900 text-white py-4 px-6 shadow-md">
+<div class="max-w-7xl mx-auto flex justify-between items-center">
+<div class="flex items-center space-x-3">
+<span class="text-2xl">🔍</span>
+<h1 class="text-xl font-bold tracking-tight">PORTAL SCREENING CV - HRD COMMAND CENTER</h1>
 </div>
-
+<div class="bg-blue-600 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase">
+Live Database Terkoneksi
+</div>
+</div>
+</nav>
+<main class="max-w-7xl mx-auto p-6 space-y-8">
+<!-- KPI Dashboard Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card Total -->
+<div class="bg-gradient-to-tr from-blue-600 to-blue-500 rounded-2xl p-6 text-white shadow-lg transform transition hover:scale-105 duration-300">
+<p class="text-sm font-semibold opacity-80 uppercase tracking-wider">Total Pelamar Terdaftar</p>
+<h3 id="kpi-total" class="text-5xl font-extrabold mt-2">0</h3>
+<p class="text-xs mt-3 opacity-90">Dihitung otomatis dari seluruh respon formulir masuk</p>
+</div>
+<!-- Card Lolos -->
+<div class="bg-gradient-to-tr from-emerald-600 to-emerald-500 rounded-2xl p-6 text-white shadow-lg transform transition hover:scale-105 duration-300">
+<p class="text-sm font-semibold opacity-80 uppercase tracking-wider">Lolos Screening (Skor &ge; 80)</p>
+<h3 id="kpi-lolos" class="text-5xl font-extrabold mt-2">0</h3>
+<p class="text-xs mt-3 opacity-90">Kandidat dengan tingkat kecocokan kualifikasi prima</p>
+</div>
+<!-- Card Rata-Rata -->
+<div class="bg-gradient-to-tr from-indigo-600 to-indigo-500 rounded-2xl p-6 text-white shadow-lg transform transition hover:scale-105 duration-300">
+<p class="text-sm font-semibold opacity-80 uppercase tracking-wider">Rata-Rata Skor CV</p>
+<h3 id="kpi-avg" class="text-5xl font-extrabold mt-2">0.0</h3>
+<p class="text-xs mt-3 opacity-90">Rata-rata kesesuaian seluruh kandidat berdasarkan AI</p>
+</div>
+</div>
+<!-- Applicants Table Area -->
+<div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+<div class="p-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
+<div>
+<h2 class="text-lg font-bold text-slate-900">Daftar Pelamar Teratas (Urutan Skor)</h2>
+<p class="text-sm text-slate-500">Gemini AI menyaring dan mengurutkan secara otomatis dari skor tertinggi</p>
+</div>
+<button onclick="loadData()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center space-x-2">
+<span>🔄</span> <span>Segarkan Data</span>
+</button>
+</div>
+<!-- Table Wrapper -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 text-slate-500 text-xs font-bold uppercase tracking-wider border-b border-slate-100">
+<th class="py-4 px-6">Pelamar</th>
+<th class="py-4 px-6">Posisi</th>
+<th class="py-4 px-6 text-center">Skor AI</th>
+<th class="py-4 px-6">Analisis & Ringkasan CV</th>
+<th class="py-4 px-6">Keahlian Utama</th>
+<th class="py-4 px-6 text-center">Tindakan HRD</th>
+</tr>
+</thead>
+<tbody id="applicant-rows" class="divide-y divide-slate-100 text-sm text-slate-700">
+<!-- Data akan dimuat secara dinamis oleh JavaScript -->
+<tr>
+<td colspan="6" class="py-10 text-center text-slate-400">Sedang menyinkronkan dengan Google Sheets...</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
 <script>
-    // GANTI TULISAN DI BAWAH INI DENGAN URL WEB APP DARI GOOGLE APPS SCRIPT ANDA
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwwtHXUJ7vwC6WQY-3bPsHMz1p6_adl1MVIfAYMoZWeZuQeiLC7ZCOgVBxwmWTunafm/exec';
-
-    document.getElementById('cvForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Mencegah halaman reload saat submit
-        
-        const submitBtn = document.getElementById('submitBtn');
-        const messageDiv = document.getElementById('message');
-        
-        // Ubah tombol menjadi loading
-        submitBtn.disabled = true;
-        submitBtn.innerText = 'Mengirim...';
-        messageDiv.innerText = '';
-
-        // Ambil data dari input form
-        const dataPelamar = {
-            nama: document.getElementById('nama').value,
-            email: document.getElementById('email').value,
-            linkCv: document.getElementById('linkCv').value
-        };
-
-        // Kirim data ke Google Apps Script menggunakan fetch API
-        fetch(scriptURL, {
-            method: 'POST',
-            mode: 'no-cors', // Diperlukan agar tidak terblokir CORS policy di browser lokal
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(dataPelamar)
-        })
-        .then(() => {
-            // Karena menggunakan mode: 'no-cors', browser tidak bisa membaca JSON respons,
-            // namun jika data masuk ke Google Sheets, proses dianggap sukses.
-            messageDiv.className = 'success';
-            messageDiv.innerText = '✓ CV Berhasil Terkirim! terimakasih atas respon dari anda.';
-            document.getElementById('cvForm').reset(); // Reset form isi kembali kosong
-        })
-        .catch(error => {
-            messageDiv.className = 'error';
-            messageDiv.innerText = '❌ Gagal mengirim data: ' + error.message;
-        })
-        .finally(() => {
-            submitBtn.disabled = false;
-            submitBtn.innerText = 'Kirim CV Saya';
-        });
-    });
+// Fungsi untuk memuat data dari Google Sheets saat website dibuka
+function loadData() {
+google.script.run.withSuccessHandler(renderDashboard).getDashboardData();
+}
+function renderDashboard(data) {
+// Update KPIs
+document.getElementById('kpi-total').innerText = data.kpis.total;
+document.getElementById('kpi-lolos').innerText = data.kpis.lolos;
+document.getElementById('kpi-avg').innerText = data.kpis.avg;
+const tableBody = document.getElementById('applicant-rows');
+tableBody.innerHTML = '';
+if (data.applicants.length === 0) {
+tableBody.innerHTML = '<tr><td colspan="6" class="py-10 text-center text-slate-400">Belum ada pelamar yang mengirimkan CV.</td></tr>';
+return;
+}
+data.applicants.forEach(app => {
+// Tentukan warna badge skor
+let scoreColor = 'bg-slate-100 text-slate-700';
+if (app.score >= 80) scoreColor = 'bg-emerald-100 text-emerald-800 font-bold';
+else if (app.score >= 60) scoreColor = 'bg-amber-100 text-amber-800 font-bold';
+else if (app.score !== null) scoreColor = 'bg-rose-100 text-rose-800 font-bold';
+// Tentukan badge status tindakan
+let statusBadge = '';
+if (app.tindakan === 'Undang Wawancara') {
+statusBadge = '<span class="inline-block mt-2 text-xs font-semibold bg-emerald-500 text-white px-2.5 py-1 rounded-full">✓ Diundang</span>';
+} else if (app.tindakan === 'Tolak') {
+statusBadge = '<span class="inline-block mt-2 text-xs font-semibold bg-rose-500 text-white px-2.5 py-1 rounded-full">✗ Ditolak</span>';
+}
+const tr = document.createElement('tr');
+tr.className = "hover:bg-slate-50/50 transition";
+tr.innerHTML = `
+<td class="py-4 px-6">
+<div class="font-bold text-slate-900">${app.nama}</div>
+<div class="text-xs text-slate-400">${app.email}</div>
+<div class="text-xs text-slate-400">${app.hp}</div>
+<div class="mt-2"><a href="${app.cvUrl}" target="_blank" class="text-blue-600 hover:underline text-xs flex items-center space-x-1"><span>📄</span> <span>Buka CV Asli</span></a></div>
+</td>
+<td class="py-4 px-6 font-semibold text-slate-700">${app.posisi}</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-block px-3 py-1.5 rounded-xl text-sm ${scoreColor}">${app.score || '-'}</span>
+<div class="text-[10px] text-slate-400 mt-1">${app.kategori}</div>
+</td>
+<td class="py-4 px-6 max-w-sm">
+<p class="text-xs leading-relaxed text-slate-600 italic">"${app.summary}"</p>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-wrap gap-1">
+${app.skills.split(',').map(skill => `<span class="bg-blue-50 text-blue-700 text-[10px] px-2 py-0.5 rounded font-medium border border-blue-100">${skill.trim()}</span>`).join('')}
+</div>
+</td>
+<td class="py-4 px-6 text-center">
+<div class="flex flex-col space-y-1.5 items-center">
+<button onclick="handleAction(${app.rowNum}, 'Undang Wawancara')" class="w-28 bg-emerald-600 hover:bg-emerald-700 text-white py-1 px-3 rounded-lg text-xs font-semibold transition shadow-sm">
+Undang
+</button>
+<button onclick="handleAction(${app.rowNum}, 'Tolak')" class="w-28 bg-rose-100 hover:bg-rose-200 text-rose-700 py-1 px-3 rounded-lg text-xs font-semibold transition">
+Tolak
+</button>
+${statusBadge}
+<div class="text-[10px] text-slate-400 mt-1">Email: ${app.statusEmail === 'Sent' ? '✅ Sent' : '⏳ Pending'}</div>
+</div>
+</td>
+`;
+tableBody.appendChild(tr);
+});
+}
+// Mengirim tindakan HRD ke backend
+function handleAction(rowNum, action) {
+if (confirm(`Apakah Anda yakin ingin memberikan tindakan "${action}" untuk pelamar ini? Sistem akan otomatis mengirimkan email respon.`)) {
+google.script.run.withSuccessHandler(function(response) {
+if (response.success) {
+alert(`Berhasil memperbarui status dan mengirimkan email notifikasi.`);
+loadData(); // Segarkan kembali tabel
+} else {
+alert(`Error: ` + response.error);
+}
+}).processHRAction(rowNum, action);
+}
+}
+// Jalankan pemuatan data otomatis saat halaman selesai dimuat
+window.onload = loadData;
 </script>
-
 </body>
 </html>
