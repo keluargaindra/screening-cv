@@ -11,5 +11,5 @@ Termasuk : Website Portal HR (Tailwind CSS), Integrasi API Gemini 3.7 Flash, Not
 
 Hubungi Tim Sales Via
 WhatsApp : https://wa.me/628138194563
-Website : https://github.com/keluargaindra/screening-cv/
+Website : https://keluargaindra.github.io/screening-cv/
 E-Mail : indra.mulyana.wfh@gmail.com
