@@ -1,15 +1,19 @@
-SCREENING CV ONLINE
-100% Bisa Di-customize Sesuai Kebutuhan Anda!
-- Setiap alur rekrutmen perusahaan memiliki kriteria unik yang berbeda. Dengan Aplikasi Screening CV Online, Anda memegang kendali penuh atas kode sumber Google Apps Script dan format Google Form Anda.
-- Bebas ubah instruksi sistem (system prompt) AI untuk kriteria penilaian.
-- Tambahkan kolom penilaian baru pada Google Form & Google Sheets kapan saja.
-- Kustomisasi penuh template draf email penolakan dan undangan wawancara.
+# 🚀 SCREENING CV ONLINE
+### Screen hundreds of CVs in just 10 seconds, powered by AI.
 
-Investasi Sekali, Hemat Selamanya
-Dapatkan lisensi penuh template spreadsheet, website portal HRD, dan skrip integrasi seumur hidup tanpa biaya langganan bulanan tersembunyi.
-Termasuk : Website Portal HR (Tailwind CSS), Integrasi API Gemini 3.7 Flash, Notifikasi Slack Webhook & Email, Kode Sumber (Bisa di-customize)
+Stop reading resumes one by one. Let AI score, rank, and notify, right from your Google Sheets.
 
-Hubungi Tim Sales Via
-WhatsApp : https://wa.me/628138194563
-Website : https://keluargaindra.github.io/screening-cv/
-E-Mail : indra.mulyana.wfh@gmail.com
+## ✨ What You Get
+- 🤖 **AI-Powered Scoring**: Gemini 3.7 Flash integration
+- 🖥️ **HR Portal Website**: clean and modern, built with Tailwind CSS
+- 🔔 **Instant Notifications**: Slack Webhook & Email
+- ✉️ **Ready-to-Use Email Templates**: rejection notices and interview invitations
+- 🛠️ **100% Customizable**: edit the AI system prompt, scoring fields, and full source code
+
+## 💰 Pay Once, Use Forever
+Lifetime license. **No monthly subscription. No hidden fees.**
+
+## 📞 Get Started
+- 💬 WhatsApp: https://wa.me/628138194563
+- 🌐 Website: https://keluargaindra.github.io/screening-cv/
+- 📧 Email: indra.mulyana.wfh@gmail.com
